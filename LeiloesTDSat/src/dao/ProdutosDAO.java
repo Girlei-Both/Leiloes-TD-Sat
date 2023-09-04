@@ -1,36 +1,40 @@
 package dao;
 
-
+import com.mysql.jdbc.Connection;
+import com.mysql.jdbc.PreparedStatement;
 import dto.ProdutosDTO;
-import java.sql.PreparedStatement;
-import java.sql.Connection;
-import javax.swing.JOptionPane;
-import java.sql.ResultSet;
-import java.util.ArrayList;
-
 
 public class ProdutosDAO {
     
-    Connection conn;
-    PreparedStatement prep;
-    ResultSet resultset;
-    ArrayList<ProdutosDTO> listagem = new ArrayList<>();
+    String sql = "";
+    private conectaDAO dao;
+    private Connection conn;
+    
+    PreparedStatement prepstm;
+    //ResultSet resultset;
+    
+    public ProdutosDAO(){
+        this.dao = new conectaDAO();
+        this.conn = (Connection) this.dao.connectDB();
+    }
     
     public void cadastrarProduto (ProdutosDTO produto){
         
+        sql = "INSERT INTO leiloes.produtos (nome, valor, status) VALUES "
+            + "(?, ?, ?)";
         
-        //conn = new conectaDAO().connectDB();
-        
+        try {
+            prepstm = (PreparedStatement) this.conn.prepareStatement(sql);
+            prepstm.setString(1, produto.getNome());
+            prepstm.setInt(2, produto.getValor());
+            prepstm.setString(3, produto.getStatus());
+            prepstm.execute();
+
+        } catch (Exception e) {
+            System.out.println("Erro ao cadastrar produto: " + e.getMessage());
+        }
         
     }
-    
-    public ArrayList<ProdutosDTO> listarProdutos(){
-        
-        return listagem;
-    }
-    
-    
-    
-        
+
 }
 

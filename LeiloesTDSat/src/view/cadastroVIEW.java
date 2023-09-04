@@ -1,12 +1,18 @@
 package view;
 
-
 import dto.ProdutosDTO;
 import dao.ProdutosDAO;
-
+import javax.swing.JOptionPane;
 
 public class cadastroVIEW extends javax.swing.JFrame {
-
+    
+    ProdutosDAO produtoDao = new ProdutosDAO();
+    ProdutosDTO produto = new ProdutosDTO();
+    
+    String nome;
+    Integer valor;
+    String status;
+    
     public cadastroVIEW() {
         initComponents();
     }
@@ -126,21 +132,28 @@ public class cadastroVIEW extends javax.swing.JFrame {
 
     private void cadastroNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastroNomeActionPerformed
         
-        
     }//GEN-LAST:event_cadastroNomeActionPerformed
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
         
-        ProdutosDTO produto = new ProdutosDTO();
-        String nome = cadastroNome.getText();
-        String valor = cadastroValor.getText();
-        String status = "A Venda";
-        produto.setNome(nome);
-        produto.setValor(Integer.parseInt(valor));
-        produto.setStatus(status);
-        
-        ProdutosDAO produtodao = new ProdutosDAO();
-        produtodao.cadastrarProduto(produto);
+        try {
+            
+            nome = cadastroNome.getText();
+            valor = Integer.valueOf(cadastroValor.getText());
+            status = "A Venda";
+            
+            produto.setNome(nome);
+            produto.setValor(valor);
+            produto.setStatus(status);
+            
+            produtoDao.cadastrarProduto(produto);
+            Limpar();
+            
+            JOptionPane.showMessageDialog(this, "SALVO com sucesso!");
+            
+        } catch (Exception ex) {
+            System.out.println("ERRO! - " + ex.getMessage());
+        }
         
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
@@ -193,4 +206,14 @@ public class cadastroVIEW extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     // End of variables declaration//GEN-END:variables
+
+    public void Limpar(){
+        
+        cadastroNome.setText("");
+        cadastroValor.setText("");
+        
+        cadastroNome.requestFocus();
+        
+    }
+
 }
