@@ -3,12 +3,17 @@ package forms;
 import beans.Produtos;
 import dao.ProdutosDAO;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
 public class ListagemVIEW extends javax.swing.JFrame {
     
     ProdutosDAO produtoDao = new ProdutosDAO();
+    Produtos produtos = new Produtos();
+            
+    int id;
+    String status;
 
     public ListagemVIEW() {
         initComponents();
@@ -126,13 +131,28 @@ public class ListagemVIEW extends javax.swing.JFrame {
 
     private void btnVenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVenderActionPerformed
 
+        try{
         
-        
+            //implementada a funcionalidade de venderProduto na tela de listagem
+
+            id = Integer.parseInt(id_produto_venda.getText());
+            status = "Vendido";
+
+            produtos.setStatus(status);
+
+            produtoDao.venderProdutos(produtos);
+            id_produto_venda.setText("");
+
+            JOptionPane.showMessageDialog(this, "VENDIDO com sucesso!");
+            
+        } catch (Exception erro) {
+            System.out.println("Erro na classe ListagemVIEW (btnVender): " + erro.getMessage());
+        }
     }//GEN-LAST:event_btnVenderActionPerformed
 
     private void btnVendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVendasActionPerformed
-        //vendasVIEW vendas = new vendasVIEW(); 
-        //vendas.setVisible(true);
+        VendasVIEW vendas = new VendasVIEW(); 
+        vendas.setVisible(true);
     }//GEN-LAST:event_btnVendasActionPerformed
 
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed

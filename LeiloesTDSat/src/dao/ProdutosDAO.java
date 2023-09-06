@@ -70,6 +70,30 @@ public class ProdutosDAO {
         }
         
     }
+    
+    public void venderProdutos(Produtos produtos){
+        
+        //deve atualizar o status de um produto para “Vendido”.
+        sql = "UPDATE leiloes.produtos SET status=? WHERE id=?";
+        
+        try {
+            
+            prepstm = (PreparedStatement) conn.prepareStatement(sql,ResultSet.TYPE_SCROLL_INSENSITIVE,
+                    ResultSet.CONCUR_UPDATABLE);
+            prepstm.setInt(1, produtos.getId());
+            prepstm.setString(2, produtos.getStatus());
+            prepstm.execute();
+
+        } catch (Exception erro) {
+            System.out.println("Erro na classe ProdutosDAO (Vender): " + erro.getMessage());
+        }
+        
+    }
+    
+    public List<Produtos> listarProdutosVendidos() {
+        //deve buscar todos os produtos no banco de dados com o status “Vendido”
+        return null;
+    }
 
 }
 

@@ -151,8 +151,8 @@ public class CadastroVIEW extends javax.swing.JFrame {
             
             JOptionPane.showMessageDialog(this, "SALVO com sucesso!");
             
-        } catch (Exception ex) {
-            System.out.println("Erro na classe CadastroVIEW (btnSalvar): " + ex.getMessage());
+        } catch (Exception erro) {
+            System.out.println("Erro na classe CadastroVIEW (btnSalvar): " + erro.getMessage());
         }
         
     }//GEN-LAST:event_btnCadastrarActionPerformed
