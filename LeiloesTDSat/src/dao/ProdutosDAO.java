@@ -1,24 +1,25 @@
 package dao;
 
+import conexao.Conexao;
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
-import dto.ProdutosDTO;
+import beans.Produtos;
 
 public class ProdutosDAO {
     
     String sql = "";
-    private conectaDAO dao;
+    private Conexao dao;
     private Connection conn;
     
     PreparedStatement prepstm;
     //ResultSet resultset;
     
     public ProdutosDAO(){
-        this.dao = new conectaDAO();
+        this.dao = new Conexao();
         this.conn = (Connection) this.dao.connectDB();
     }
     
-    public void cadastrarProduto (ProdutosDTO produto){
+    public void cadastrarProduto (Produtos produto){
         
         sql = "INSERT INTO leiloes.produtos (nome, valor, status) VALUES "
             + "(?, ?, ?)";
@@ -30,8 +31,8 @@ public class ProdutosDAO {
             prepstm.setString(3, produto.getStatus());
             prepstm.execute();
 
-        } catch (Exception e) {
-            System.out.println("Erro ao cadastrar produto: " + e.getMessage());
+        } catch (Exception erro) {
+            System.out.println("Erro na classe ProdutosDAO: " + erro.getMessage());
         }
         
     }

@@ -1,6 +1,6 @@
-package dto;
+package beans;
 
-public class ProdutosDTO {
+public class Produtos {
     
     private Integer id;
     private String nome;

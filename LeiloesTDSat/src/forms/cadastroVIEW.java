@@ -1,19 +1,19 @@
-package view;
+package forms;
 
-import dto.ProdutosDTO;
+import beans.Produtos;
 import dao.ProdutosDAO;
 import javax.swing.JOptionPane;
 
-public class cadastroVIEW extends javax.swing.JFrame {
+public class CadastroVIEW extends javax.swing.JFrame {
     
     ProdutosDAO produtoDao = new ProdutosDAO();
-    ProdutosDTO produto = new ProdutosDTO();
+    Produtos produto = new Produtos();
     
     String nome;
     Integer valor;
     String status;
     
-    public cadastroVIEW() {
+    public CadastroVIEW() {
         initComponents();
     }
     
@@ -152,13 +152,13 @@ public class cadastroVIEW extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "SALVO com sucesso!");
             
         } catch (Exception ex) {
-            System.out.println("ERRO! - " + ex.getMessage());
+            System.out.println("Erro na classe CadastroVIEW (btnSalvar): " + ex.getMessage());
         }
         
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void btnProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProdutosActionPerformed
-        listagemVIEW listagem = new listagemVIEW(); 
+        ListagemVIEW listagem = new ListagemVIEW(); 
         listagem.setVisible(true);
     }//GEN-LAST:event_btnProdutosActionPerformed
 
@@ -176,20 +176,21 @@ public class cadastroVIEW extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(cadastroVIEW.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CadastroVIEW.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(cadastroVIEW.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CadastroVIEW.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(cadastroVIEW.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CadastroVIEW.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(cadastroVIEW.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CadastroVIEW.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new cadastroVIEW().setVisible(true);
+                new CadastroVIEW().setVisible(true);
             }
         });
     }
