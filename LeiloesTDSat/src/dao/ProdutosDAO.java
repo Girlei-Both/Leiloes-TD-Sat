@@ -1,40 +1,45 @@
 package dao;
 
-import com.mysql.jdbc.Connection;
-import com.mysql.jdbc.PreparedStatement;
-import dto.ProdutosDTO;
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+
+/**
+ *
+ * @author Adm
+ */
+
+import beans.Produtos;
+import java.sql.PreparedStatement;
+import java.sql.Connection;
+import javax.swing.JOptionPane;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+
 
 public class ProdutosDAO {
     
-    String sql = "";
-    private conectaDAO dao;
-    private Connection conn;
+    Connection conn;
+    PreparedStatement prep;
+    ResultSet resultset;
+    ArrayList<Produtos> listagem = new ArrayList<>();
     
-    PreparedStatement prepstm;
-    //ResultSet resultset;
-    
-    public ProdutosDAO(){
-        this.dao = new conectaDAO();
-        this.conn = (Connection) this.dao.connectDB();
-    }
-    
-    public void cadastrarProduto (ProdutosDTO produto){
+    public void cadastrarProduto (Produtos produto){
         
-        sql = "INSERT INTO leiloes.produtos (nome, valor, status) VALUES "
-            + "(?, ?, ?)";
         
-        try {
-            prepstm = (PreparedStatement) this.conn.prepareStatement(sql);
-            prepstm.setString(1, produto.getNome());
-            prepstm.setInt(2, produto.getValor());
-            prepstm.setString(3, produto.getStatus());
-            prepstm.execute();
-
-        } catch (Exception e) {
-            System.out.println("Erro ao cadastrar produto: " + e.getMessage());
-        }
+        //conn = new conectaDAO().connectDB();
+        
         
     }
-
+    
+    public ArrayList<Produtos> listarProdutos(){
+        
+        return listagem;
+    }
+    
+    
+    
+        
 }
 
