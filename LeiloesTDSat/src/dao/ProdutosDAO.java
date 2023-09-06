@@ -3,7 +3,10 @@ package dao;
 import conexao.Conexao;
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
+import java.sql.ResultSet;
 import beans.Produtos;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ProdutosDAO {
     
@@ -12,7 +15,7 @@ public class ProdutosDAO {
     private Connection conn;
     
     PreparedStatement prepstm;
-    //ResultSet resultset;
+    ResultSet resultset;
     
     public ProdutosDAO(){
         this.dao = new Conexao();
@@ -32,7 +35,38 @@ public class ProdutosDAO {
             prepstm.execute();
 
         } catch (Exception erro) {
-            System.out.println("Erro na classe ProdutosDAO: " + erro.getMessage());
+            System.out.println("Erro na classe ProdutosDAO (Cadastrar): " + erro.getMessage());
+        }
+        
+    }
+    
+    //LISTAR TODOS OS REGISTROS
+    public List<Produtos> listarProdutos() {
+        
+        sql = "SELECT * FROM leiloes.produtos";
+
+        try {
+            prepstm = (PreparedStatement) this.conn.prepareStatement(sql);
+            resultset = prepstm.executeQuery();            
+
+            List<Produtos> todosProdutos = new ArrayList<>();
+
+            while (resultset.next()) {
+                
+                Produtos produtos = new Produtos();
+                
+                produtos.setId(resultset.getInt("id"));
+                produtos.setNome(resultset.getString("nome"));
+                produtos.setValor(resultset.getInt("valor"));
+                produtos.setStatus(resultset.getString("status"));
+
+                todosProdutos.add(produtos);    
+            }
+            return todosProdutos;
+            
+        } catch (Exception erro) {
+            System.out.println("Erro na classe ProdutosDAO (Listar): " + erro.getMessage());
+            return null;
         }
         
     }
