@@ -71,7 +71,7 @@ public class ProdutosDAO {
         
     }
     
-    public void venderProdutos(Produtos produtos){
+    public void venderProdutos (Produtos produto){
         
         //deve atualizar o status de um produto para “Vendido”.
         sql = "UPDATE leiloes.produtos SET status=? WHERE id=?";
@@ -80,8 +80,8 @@ public class ProdutosDAO {
             
             prepstm = (PreparedStatement) conn.prepareStatement(sql,ResultSet.TYPE_SCROLL_INSENSITIVE,
                     ResultSet.CONCUR_UPDATABLE);
-            prepstm.setInt(1, produtos.getId());
-            prepstm.setString(2, produtos.getStatus());
+            prepstm.setString(1, produto.getStatus());
+            prepstm.setInt(2, produto.getId());
             prepstm.execute();
 
         } catch (Exception erro) {
@@ -92,7 +92,31 @@ public class ProdutosDAO {
     
     public List<Produtos> listarProdutosVendidos() {
         //deve buscar todos os produtos no banco de dados com o status “Vendido”
-        return null;
+        sql = "SELECT * FROM leiloes.produtos WHERE status='Vendido'";
+
+        try {
+            prepstm = (PreparedStatement) this.conn.prepareStatement(sql);
+            resultset = prepstm.executeQuery();            
+
+            List<Produtos> todosProdutos = new ArrayList<>();
+
+            while (resultset.next()) {
+                
+                Produtos produtos = new Produtos();
+                
+                produtos.setId(resultset.getInt("id"));
+                produtos.setNome(resultset.getString("nome"));
+                produtos.setValor(resultset.getInt("valor"));
+                produtos.setStatus(resultset.getString("status"));
+
+                todosProdutos.add(produtos);    
+            }
+            return todosProdutos;
+            
+        } catch (Exception erro) {
+            System.out.println("Erro na classe ProdutosDAO (Listar): " + erro.getMessage());
+            return null;
+        }
     }
 
 }

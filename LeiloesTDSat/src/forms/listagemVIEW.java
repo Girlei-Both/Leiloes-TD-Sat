@@ -10,7 +10,7 @@ import javax.swing.table.TableRowSorter;
 public class ListagemVIEW extends javax.swing.JFrame {
     
     ProdutosDAO produtoDao = new ProdutosDAO();
-    Produtos produtos = new Produtos();
+    Produtos produto = new Produtos();
             
     int id;
     String status;
@@ -138,9 +138,10 @@ public class ListagemVIEW extends javax.swing.JFrame {
             id = Integer.parseInt(id_produto_venda.getText());
             status = "Vendido";
 
-            produtos.setStatus(status);
+            produto.setId(id);
+            produto.setStatus(status);
 
-            produtoDao.venderProdutos(produtos);
+            produtoDao.venderProdutos(produto);
             id_produto_venda.setText("");
 
             JOptionPane.showMessageDialog(this, "VENDIDO com sucesso!");
