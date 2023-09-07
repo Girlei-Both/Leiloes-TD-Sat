@@ -131,6 +131,8 @@ public class VendasVIEW extends javax.swing.JFrame {
 
         DefaultTableModel tabela = (DefaultTableModel) listaProdutos.getModel();
 
+        tabela.setRowCount(0);
+        
         listaProdutos.setRowSorter(new TableRowSorter(tabela));
 
         for (Produtos c : listar) {
